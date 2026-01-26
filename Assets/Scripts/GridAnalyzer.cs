@@ -43,15 +43,14 @@ public class GridAnalyzer : MonoBehaviour
 
                 byte targetColor = boardData[r, c];
 
-                _searchQueue.Clear();
-                _currentGroup.Clear();
+                ClearHelperLists(false);
 
                 _searchQueue.Enqueue(new Vector2Int(r, c));
                 _visitedMask[r, c] = true;
                 _currentGroup.Add(new Vector2Int(r, c));
 
                 SearchColor(M, N, boardData, targetColor);
-                
+
                 int groupSize = _currentGroup.Count;
 
                 if (groupSize >= 2)
@@ -104,6 +103,7 @@ public class GridAnalyzer : MonoBehaviour
             }
         }
     }
+
     /// <summary>
     /// Determines color based on count.
     /// Uses thresholds in class.
@@ -112,7 +112,7 @@ public class GridAnalyzer : MonoBehaviour
     /// <returns>Icon type</returns>
     private int DetermineIconType(int count)
     {
-        for (int i = _thresholds.Length-1; i >= 0; i--)
+        for (int i = _thresholds.Length - 1; i >= 0; i--)
         {
             if (_thresholds[i] < count)
             {
@@ -120,6 +120,7 @@ public class GridAnalyzer : MonoBehaviour
                 return i + 1;
             }
         }
+
         return 0;
     }
     // A 3 B 5 C 8
@@ -127,4 +128,31 @@ public class GridAnalyzer : MonoBehaviour
     // 4 5 = 1
     // 6 7 8 = 2
     // 9 10 11 = 3
+
+    public List<Vector2Int> GetConnectedGroup(int r, int c, byte[,] boardData, int M, int N)
+    {
+        if (r < 0 || r >= M || c < 0 || c >= N) return new List<Vector2Int>();
+        byte targetColor = boardData[r, c];
+        ClearHelperLists(true);
+
+        _searchQueue.Enqueue(new Vector2Int(r, c));
+        _visitedMask[r, c] = true;
+        _currentGroup.Add(new Vector2Int(r, c));
+        
+        SearchColor(M, N, boardData, targetColor);
+
+        // Return copy for avoid reference errors
+        return new List<Vector2Int>(_currentGroup);
+    }
+
+    /// <summary>
+    /// Clears Search Queue, Current group and Visited mask if clear visited is true
+    /// </summary>
+    /// <param name="clearVisited">Clear visited mask?</param>
+    private void ClearHelperLists(bool clearVisited)
+    {
+        if (clearVisited) System.Array.Clear(_visitedMask, 0, _visitedMask.Length);
+        _searchQueue.Clear();
+        _currentGroup.Clear();
+    }
 }

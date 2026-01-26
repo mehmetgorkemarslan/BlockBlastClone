@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 public class BlockVisual : MonoBehaviour
 {
     public SpriteRenderer spriteRenderer;
-    public Vector2Int gridPosition { get; private set; }
+    public Vector2Int gridPosition;
 
     public void Init(int r, int c)
     {
