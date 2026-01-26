@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9861088e7eb0f984ebce0d46b7c3aba1, type: 3}
+  m_Name: BlockVisuals
+  m_EditorClassIdentifier: Assembly-CSharp::BlockTheme
+  thresholds: 030000000400000005000000
+  colors:
+  - name: Blue
+    sprites:
+    - {fileID: 21300000, guid: 5cad616b80c8eda43a0a9449b680fd3f, type: 3}
+    - {fileID: 21300000, guid: 532362f4c24b8a44687572607660949d, type: 3}
+    - {fileID: 21300000, guid: a2d0d99ff75cd6344b87450502a15962, type: 3}
+    - {fileID: 21300000, guid: 63cfd51ecc362bb4bb737b75877c8455, type: 3}
+  - name: Green
+    sprites:
+    - {fileID: 21300000, guid: 047b6626c6e8173449269a5e9583c380, type: 3}
+    - {fileID: 21300000, guid: 68f62242ca3403c43aa2b8ce11eb1970, type: 3}
+    - {fileID: 21300000, guid: 2e615d985a7bd1043893d98b41af75ff, type: 3}
+    - {fileID: 21300000, guid: 9e050a43c32536d4ab31a4183a796112, type: 3}
+  - name: Pink
+    sprites:
+    - {fileID: 21300000, guid: 15c1e325865391f4397d1d26b1919f44, type: 3}
+    - {fileID: 21300000, guid: 845d14ea0118aab42a26f1e8bd73c59e, type: 3}
+    - {fileID: 21300000, guid: b369a19c0076f284889a8bebcf3a1880, type: 3}
+    - {fileID: 21300000, guid: 866ca832dc0ded44b9de33a2de064ead, type: 3}
+  - name: Purple
+    sprites:
+    - {fileID: 21300000, guid: 18f5f9dbf4192ce49af40d3cd4504e2e, type: 3}
+    - {fileID: 21300000, guid: e04d02ef810e9c54486d169204d2322b, type: 3}
+    - {fileID: 21300000, guid: 80218a2a22257a04b847fe5131053ecd, type: 3}
+    - {fileID: 21300000, guid: 4902b59ace5b8764f862f3388a5fcfa0, type: 3}
+  - name: Red
+    sprites:
+    - {fileID: 21300000, guid: abbf34e0febbb204a94f130e21129908, type: 3}
+    - {fileID: 21300000, guid: 8000f9f2ba24ca84aa8bc090307160fa, type: 3}
+    - {fileID: 21300000, guid: 1f7a06a84b1135e40aa3f67ca5619d28, type: 3}
+    - {fileID: 21300000, guid: 063112a9d611e054f8c847174f34d80b, type: 3}
+  - name: Yellow
+    sprites:
+    - {fileID: 21300000, guid: 7cccdb26b69048d459c11c7f3ca71e99, type: 3}
+    - {fileID: 21300000, guid: 86fb4259823cb324fb3fc87a5ebbf43e, type: 3}
+    - {fileID: 21300000, guid: 863a90fda0eccd3419c0c0e437b4ed92, type: 3}
+    - {fileID: 21300000, guid: ce393b7db6b2e4f44b5054a399979c1a, type: 3}
