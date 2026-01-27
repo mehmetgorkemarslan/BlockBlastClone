@@ -382,12 +382,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e897f527411c1a4080785aab2f2b6d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridController
-  M: 10
-  N: 10
+  m: 10
+  n: 10
   theme: {fileID: 11400000, guid: b89abaaa5fe56cb438d23495ecd04d9e, type: 2}
   analyzer: {fileID: 1732567847}
   blockPrefab: {fileID: 1995870917472918555, guid: 0496948dfaf7d7a409600da0bc112cdf, type: 3}
   boardContainer: {fileID: 1732567849}
+  clusteringChance: 0.4
 --- !u!4 &1732567849
 Transform:
   m_ObjectHideFlags: 0

@@ -1,9 +1,8 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class BlockVisual : MonoBehaviour
 {
-    public SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     public Vector2Int gridPosition;
 
     public void Init(int r, int c)
@@ -13,6 +12,12 @@ public class BlockVisual : MonoBehaviour
 
     public void UpdateSprite(Sprite sprite)
     {
+        if (spriteRenderer == null)
+        {
+            Debug.LogWarning($"BlockVisual missing SpriteRenderer on '{gameObject.name}'");
+            return;
+        }
+
         if (spriteRenderer.sprite != sprite)
         {
             spriteRenderer.sprite = sprite;

@@ -20,14 +20,20 @@ public class BlockTheme : ScriptableObject
         /// Returns default icon if there is any out of index situation</returns>
         public Sprite GetIcon(int iconType)
         {
-            if (iconType < sprites.Length)
+            if (sprites == null || sprites.Length == 0)
+            {
+                Debug.LogWarning($"ColorSet '{name}' has no sprites configured.");
+                return null;
+            }
+
+            if (iconType >= 0 && iconType < sprites.Length)
             {
                 return sprites[iconType];
             }
-            Debug.LogWarning("Block try to access invalid index\nReturning default sprite");
+
+            Debug.LogWarning($"GetIcon: invalid iconType {iconType} for color '{name}'. Returning default sprite.");
             return sprites[0];
         }
-        
         
     }
     
@@ -46,7 +52,18 @@ public class BlockTheme : ScriptableObject
     /// <returns>Sprite to use</returns>
     public Sprite GetSprite(int colorIndex, int iconType)
     {
-        if (colorIndex < 0 || colorIndex >= colors.Length) return null;
+        if (colors == null || colors.Length == 0)
+        {
+            Debug.LogWarning("BlockTheme has no colors configured.");
+            return null;
+        }
+
+        if (colorIndex < 0 || colorIndex >= colors.Length)
+        {
+            Debug.LogWarning($"GetSprite: invalid colorIndex {colorIndex} for theme '{name}'.");
+            return null;
+        }
+
         return colors[colorIndex].GetIcon(iconType);
     }
 }
