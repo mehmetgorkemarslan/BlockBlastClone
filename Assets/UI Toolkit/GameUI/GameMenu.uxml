@@ -1,0 +1,11 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/GameUI/GameMenuStyle.uss?fileID=7433441132597879392&amp;guid=ce5bdf1c4acf04e489e0e21d91ac2e3a&amp;type=3#GameMenuStyle"/>
+    <ui:VisualElement name="PauseContainer" style="flex-grow: 1; position: absolute; top: 0; left: -1px; bottom: 0; right: 2px; display: none;">
+        <ui:VisualElement name="ButtonContainer" style="flex-grow: 1; align-items: center; justify-content: center; align-self: center; align-content: center; top: 0;">
+            <ui:Button text="Resume" name="ResumeBtn" class="button"/>
+            <ui:Button text="Main menu" name="MainMenuButton" class="button"/>
+            <ui:Button text="Exit Game" name="ExitGameButton" class="button"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:Button text="| |" name="StopBtn" class="button" style="align-self: flex-end; align-content: center; justify-content: center; translate: -10px 10%;"/>
+</ui:UXML>

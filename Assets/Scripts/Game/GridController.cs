@@ -3,6 +3,7 @@ using Random = UnityEngine.Random;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.Serialization;
 
 public class GridController : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GridController : MonoBehaviour
 
     [Header("References")] [SerializeField]
     private GridAnalyzer analyzer;
+    [SerializeField] private GameManager gameManager;
 
     [SerializeField] private BlockVisual blockPrefab;
     [SerializeField] private Transform boardContainer;
@@ -178,6 +180,8 @@ public class GridController : MonoBehaviour
     private void OnClickPerformed(InputAction.CallbackContext context)
     {
         if (_isAnimating) return;
+        
+        if (gameManager != null && gameManager._isGamePaused) return;
         
         Vector2 screenPosition = _positionAction.ReadValue<Vector2>();
 

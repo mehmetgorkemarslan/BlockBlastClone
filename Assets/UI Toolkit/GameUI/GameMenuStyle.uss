@@ -1,0 +1,20 @@
+:root {
+}
+
+.button {
+    align-items: center;
+    justify-content: space-between;
+    align-self: center;
+    align-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    transform-origin: center;
+    translate: 0 150%;
+    width: auto;
+    font-size: 40px;
+    -unity-text-align: middle-center;
+}

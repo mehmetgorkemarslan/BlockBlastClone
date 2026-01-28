@@ -1,0 +1,11 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/MainMenu/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=2fbb53788da9ffe41b4d652a90f2495b&amp;type=3#MainMenuStyle"/>
+    <ui:VisualElement style="flex-grow: 1; aspect-ratio: 1.777778;">
+        <ui:Label text="Block Blast" class="header" style="height: 382px; top: 15%;"/>
+        <ui:VisualElement name="ButtonContainer" style="flex-grow: 0; flex-direction: column; align-items: stretch; align-self: center; justify-content: space-around; flex-shrink: 1; align-content: center; height: 875px; width: 186px;">
+            <ui:Button text="Start" name="StartButton" class="button"/>
+            <ui:Button text="Settings" name="SettingsButton" class="button" style="aspect-ratio: 1.777778;"/>
+            <ui:Button text="Quit App" name="QuitButton" class="button" style="aspect-ratio: 1.777778;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
