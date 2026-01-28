@@ -2,6 +2,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using System.Collections;
 
 public class GridController : MonoBehaviour
 {
@@ -28,6 +29,11 @@ public class GridController : MonoBehaviour
 
     private byte[,] _boardData;
     private BlockVisual[,] _visualBoard;
+
+    private bool _isAnimating = false;
+    private readonly float _fallDuration = 0.5f;
+    private readonly float _bounceDelay = 0.05f;
+    
     #endregion
 
     
@@ -171,6 +177,8 @@ public class GridController : MonoBehaviour
     
     private void OnClickPerformed(InputAction.CallbackContext context)
     {
+        if (_isAnimating) return;
+        
         Vector2 screenPosition = _positionAction.ReadValue<Vector2>();
 
         Vector3 worldPosition = _mainCamera.ScreenToWorldPoint(screenPosition);
@@ -185,21 +193,23 @@ public class GridController : MonoBehaviour
 #if UNITY_EDITOR
             Debug.Log($"Clicked: r:{r}, c:{c}");
 #endif
-            Blast(r, c);
+            StartCoroutine(Blast(r, c));
         }
     }
 
-    private void Blast(int r, int c)
+    private IEnumerator Blast(int r, int c)
     {
-        if (_boardData[r, c] == GameConstants.EMPTY) return;
+        if (_boardData[r, c] == GameConstants.EMPTY) yield break;
 
         var group = analyzer.GetConnectedGroup(r, c, _boardData, m, n);
 
-        if (group.Count < 2) return;
+        if (group.Count < 2) yield break;
+
+        _isAnimating = true;
 
         foreach (Vector2Int pos in group)
         {
-            if (_visualBoard[pos.x, pos.y] != null)
+            if (_visualBoard[pos.x, pos.y])
             {
                 // TODO: Object pooling
                 Destroy(_visualBoard[pos.x, pos.y].gameObject);
@@ -209,9 +219,15 @@ public class GridController : MonoBehaviour
             _boardData[pos.x, pos.y] = GameConstants.EMPTY;
         }
 
+        yield return new WaitForSeconds(0.05f);
+
         ApplyGravityAndRefill();
 
+        yield return new WaitForSeconds(_fallDuration + 0.1f);
+
         UpdateVisual();
+
+        _isAnimating = false;
     }
 
     private void ApplyGravityAndRefill()
@@ -240,11 +256,11 @@ public class GridController : MonoBehaviour
                     _visualBoard[r, c] = null;
 
 
-                    // TODO: drop animation
-                    if (block != null)
+                    if (block)
                     {
                         block.gridPosition = new Vector2Int(writeRow, c);
-                        block.transform.localPosition = new Vector3(c, writeRow, 0);
+                        Vector3 targetPos = new Vector3(c, writeRow, 0);
+                        block.MovePos(targetPos, _fallDuration);
                     }
                 }
 
@@ -260,12 +276,15 @@ public class GridController : MonoBehaviour
                 _boardData[r, c] = newColor;
 
                 BlockVisual newBlock = Instantiate(blockPrefab, boardContainer);
-
-                //TODO: Animation
-                newBlock.transform.localPosition = new Vector3(c, r, 0);
+                newBlock.UpdateSprite(theme.GetSprite(newColor, 0));
+                float startY = n + 2;
+                newBlock.transform.localPosition = new Vector3(c, startY, 0);
                 newBlock.Init(r, c);
 
                 _visualBoard[r, c] = newBlock;
+
+                Vector3 targetPos = new Vector3(c, r, 0);
+                newBlock.MovePos(targetPos, _fallDuration + (c*_bounceDelay));
             }
         }
     }
