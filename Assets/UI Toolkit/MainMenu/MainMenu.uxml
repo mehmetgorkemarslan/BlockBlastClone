@@ -1,11 +1,55 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/MainMenu/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=2fbb53788da9ffe41b4d652a90f2495b&amp;type=3#MainMenuStyle"/>
     <ui:VisualElement style="flex-grow: 1; aspect-ratio: 1.777778;">
-        <ui:Label text="Block Blast" class="header" style="height: 382px; top: 15%;"/>
-        <ui:VisualElement name="ButtonContainer" style="flex-grow: 0; flex-direction: column; align-items: stretch; align-self: center; justify-content: space-around; flex-shrink: 1; align-content: center; height: 875px; width: 186px;">
-            <ui:Button text="Start" name="StartButton" class="button"/>
-            <ui:Button text="Settings" name="SettingsButton" class="button" style="aspect-ratio: 1.777778;"/>
-            <ui:Button text="Quit App" name="QuitButton" class="button" style="aspect-ratio: 1.777778;"/>
+        <ui:Label text="Block Blast" class="header" style="position: absolute; top: 10%; width: 100%; -unity-text-align: middle-center;"/>
+        <ui:VisualElement name="MainContainer" style="flex-grow: 1; justify-content: center; align-items: center; margin-top: 200px; display: flex;">
+            <ui:VisualElement name="ButtonContainer" style="flex-grow: 0; flex-direction: column; align-items: stretch; align-self: center; justify-content: space-around; flex-shrink: 1; align-content: center; height: 875px; width: 186px;">
+                <ui:Button text="Start" name="StartButton" class="button"/>
+                <ui:Button text="Settings" name="SettingsButton" class="button" style="aspect-ratio: 1.777778;"/>
+                <ui:Button text="Quit App" name="QuitButton" class="button" style="aspect-ratio: 1.777778;"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="SettingsContainer" style="display: none; flex-grow: 1; background-color: rgba(0, 0, 0, 0.85); padding: 20px; margin: 20px; border-radius: 20px;">
+            <ui:VisualElement style="flex-direction: row; justify-content: space-between; margin-bottom: 10px; border-bottom-width: 1px; border-bottom-color: rgb(85, 85, 85); padding-bottom: 10px;">
+                <ui:Label text="Theme Editor" style="font-size: 30px; color: white; -unity-font-style: bold;"/>
+                <ui:Button text="BACK" name="BackBtn" class="button-small"/>
+            </ui:VisualElement>
+            <ui:VisualElement style="background-color: #333; padding: 10px; border-radius: 10px; margin-bottom: 10px;">
+                <ui:Label text="Board &amp; Gameplay" style="color: #aaa; -unity-font-style: bold; margin-bottom: 5px;"/>
+    
+                <ui:VisualElement style="flex-direction: row; justify-content: space-between; margin-bottom: 10px;">
+                    <ui:VisualElement style="flex-direction: row; align-items: center;">
+                        <ui:Label text="Rows:" style="color: white; width: 50px;"/>
+                        <ui:IntegerField name="RowsInput" style="width: 50px;"/>
+                    </ui:VisualElement>
+        
+                    <ui:VisualElement style="flex-direction: row; align-items: center;">
+                        <ui:Label text="Cols:" style="color: white; width: 50px;"/>
+                        <ui:IntegerField name="ColsInput" style="width: 50px;"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement>
+                    <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                        <ui:Label text="Cluster Chance:" style="color: white;"/>
+                        <ui:Label name="ClusterValueLabel" text="50%" style="color: #FFD700;"/>
+                    </ui:VisualElement>
+                    <ui:Slider name="ClusterSlider" low-value="0" high-value="1" style="margin-top: 5px;"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-direction: row; margin-bottom: 15px; background-color: rgb(51, 51, 51); padding: 10px; border-radius: 10px; align-items: center;">
+                <ui:Label text="Active Colors (K):" style="color: white; margin-right: 10px; -unity-font-style: bold;"/>
+                <ui:IntegerField name="ActiveCountInput" style="width: 60px; height: 30px;"/>
+                <ui:VisualElement style="flex-grow: 1;"/>
+                <ui:Label text="Thresholds:" style="color: rgb(170, 170, 170); margin-right: 10px;"/>
+                <ui:VisualElement name="ThresholdListContainer" style="flex-direction: row;"/>
+                <ui:Button text="+" name="AddThresholdBtn" class="btn-mini-action"/>
+                <ui:Button text="-" name="RemoveThresholdBtn" class="btn-mini-danger"/>
+            </ui:VisualElement>
+            <ui:ScrollView name="ColorsScrollView" style="flex-grow: 1; background-color: rgb(34, 34, 34); border-radius: 10px; padding: 10px;">
+                <ui:VisualElement name="ColorsContainer"/>
+            </ui:ScrollView>
+            <ui:Button text="+ Add New Color Set" name="AddNewColorBtn" class="button" style="height: 60px; font-size: 24px; margin-top: 10px; width: 100%; aspect-ratio: auto;"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

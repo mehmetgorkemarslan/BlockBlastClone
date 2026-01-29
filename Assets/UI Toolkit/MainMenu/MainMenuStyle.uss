@@ -4,20 +4,16 @@ VisualElement {
 .header {
     font-size: 90px;
     -unity-font-style: bold;
-    color: #FFD700;
-    
+    color: rgb(255, 215, 0);
     align-self: center;
     margin-top: 50px;
     margin-bottom: 30px;
-
     -unity-text-outline-width: 4px;
-    -unity-text-outline-color: #8B4513;
-    text-shadow: 6px 6px 0px rgba(0, 0, 0, 0.4);
+    -unity-text-outline-color: rgb(139, 69, 19);
+    text-shadow: 6px 6px 0 rgba(0, 0, 0, 0.4);
     letter-spacing: 5px;
     cursor: initial;
 }
-
-
 
 .button {
     width: 100px;
@@ -39,4 +35,104 @@ VisualElement {
     scale: 1.06 1.06 1.06;
     transition-duration: 0.15s;
     transition-timing-function: ease-in-out;
+}
+
+.button-small {
+    background-color: rgb(217, 83, 79);
+    color: white;
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 10px 20px;
+    border-width: 0;
+}
+
+.button-small:hover {
+    background-color: rgb(201, 48, 44);
+}
+
+.btn-mini-action {
+    width: 30px;
+    height: 30px;
+    background-color: rgb(76, 175, 80);
+    color: white;
+    margin-left: 5px;
+    border-radius: 5px;
+}
+
+.btn-mini-danger {
+    width: 30px;
+    height: 30px;
+    background-color: rgb(244, 67, 54);
+    color: white;
+    margin-left: 5px;
+    border-radius: 5px;
+}
+
+.color-card {
+    background-color: rgb(56, 56, 56);
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    border-left-width: 8px;
+    transition-property: opacity;
+    transition-duration: 0.15s;
+}
+
+.card-active {
+    border-left-color: rgb(76, 175, 80);
+    opacity: 1;
+}
+
+.card-reserve {
+    border-left-color: rgb(119, 119, 119);
+    opacity: 0.5;
+}
+
+.card-header {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.card-actions {
+    flex-direction: row;
+}
+
+.action-icon {
+    width: 30px;
+    height: 30px;
+    margin-left: 2px;
+    font-size: 12px;
+}
+
+.sprite-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: rgb(34, 34, 34);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.sprite-slot {
+    width: 70px;
+    height: 70px;
+    margin-right: 5px;
+    background-color: rgb(17, 17, 17);
+    border-width: 1px;
+    border-color: rgb(68, 68, 68);
+    align-items: center;
+    justify-content: center;
+}
+
+.sprite-preview {
+    width: 50px;
+    height: 50px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.slot-info {
+    font-size: 10px;
+    color: rgb(136, 136, 136);
+    position: absolute;
+    bottom: 2px;
 }

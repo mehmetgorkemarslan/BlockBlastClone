@@ -9,7 +9,7 @@ public class BlockTheme : ScriptableObject
     {
         public string name;
 
-        [Tooltip("Sprites to use.\nFirst one is default second is first threshold etc")]
+        [Tooltip("Sprites to use.\nFirst one is default second is first threshold etc\n there must be at least threshold + 1 sprite")]
         public Sprite[] sprites;
 
         /// <summary>
@@ -36,9 +36,24 @@ public class BlockTheme : ScriptableObject
         }
         
     }
+
+    [Header("Board Configuration")] [Tooltip("Row count")] [Range(2, 15)]
+    public int rows = 8;
+
+    [Tooltip("Column Count")] 
+    [Range (2, 15)]public int columns = 6;
+
+    [Tooltip("Block clustering chance\n0 is fully random")] [Range(0.0f, 1.0f)]
+    public float clusterChance = 0.5f;
     
+    
+    [Header("Game Rules")]
     [Tooltip("Sprite Chance Thresholds\nFirst threshold uses Sprites[1]")]
     public int[] thresholds;
+
+    [Tooltip("The color count to use. Can not be more than count of colors")]
+    [Min(1)]
+    public int activeColorCount = 4;
 
     [Tooltip("Order of colors is important")]
     public ColorSet[] colors;
@@ -58,7 +73,7 @@ public class BlockTheme : ScriptableObject
             return null;
         }
 
-        if (colorIndex < 0 || colorIndex >= colors.Length)
+        if (colorIndex < 0 || colorIndex >= colors.Length ||colorIndex >= activeColorCount)
         {
             Debug.LogWarning($"GetSprite: invalid colorIndex {colorIndex} for theme '{name}'.");
             return null;

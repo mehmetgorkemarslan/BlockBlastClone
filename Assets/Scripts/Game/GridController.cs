@@ -8,8 +8,8 @@ using UnityEngine.Serialization;
 public class GridController : MonoBehaviour
 {
     #region Fields
-    [Header("Settings")] [SerializeField] private int m;
-    [SerializeField] private int n; // M row N column
+    [Header("Settings")] private int m;
+    private int n; // M row N column
     [SerializeField] private BlockTheme theme;
 
     [Header("References")] [SerializeField]
@@ -19,10 +19,7 @@ public class GridController : MonoBehaviour
     [SerializeField] private BlockVisual blockPrefab;
     [SerializeField] private Transform boardContainer;
 
-    [Header("Generation Settings")]
-    [Range(0f, 1f)]
-    [Tooltip("0 is fully random, 1 is gurantee same color")]
-    [SerializeField]
+    
     private float clusteringChance = 0.4f;
 
     private InputAction _clickAction;
@@ -53,6 +50,10 @@ public class GridController : MonoBehaviour
         _positionAction = new InputAction(type: InputActionType.Value, expectedControlType: "Vector2");
         _positionAction.AddBinding("<Mouse>/position");
         _positionAction.AddBinding("<Touchscreen>/primaryTouch/position");
+
+        m = theme.rows;
+        n = theme.columns;
+        clusteringChance = theme.clusterChance;
     }
 
     private void OnEnable()
@@ -237,7 +238,7 @@ public class GridController : MonoBehaviour
     private void ApplyGravityAndRefill()
     {
         // Gravity
-        int k = theme.colors.Length;
+        int k = theme.activeColorCount;
         for (int c = 0; c < n; c++)
         {
             // Next empty row
@@ -296,7 +297,7 @@ public class GridController : MonoBehaviour
     
     private byte GetWeightedRandomColor(int r, int c)
     {
-        int k = theme.colors.Length;
+        int k = theme.activeColorCount;
         byte colorIndex;
         
         // Check is there any adjacent colored block

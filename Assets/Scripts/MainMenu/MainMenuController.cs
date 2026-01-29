@@ -1,20 +1,26 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
-    [Header("Scene Management")] 
+    [Header("Dependencies")] 
+    [SerializeField]
+    private ThemeSettingsManager themeManager;
     [SerializeField]
     private int gameSceneIndex = 1;
     
     private UIDocument _document;
 
+    private VisualElement _mainContainer;
+    private VisualElement _settingsContainer;
+    
     private Button _startBtn;
     private Button _settingsBtn;
     private Button _quitBtn;
+    private Button _backBtn;
+
+    #region Unity Built-in
 
     private void Awake()
     {
@@ -24,14 +30,54 @@ public class MainMenuController : MonoBehaviour
         
         QueryElements();
     }
+    
+    private void OnEnable()
+    {
+        SubscribeEvents();
 
+        ChanceMenuOrSettings(true);
+    }
+
+    private void OnDisable()
+    {
+        if (_document == null || _document.rootVisualElement == null) return;
+        UnsubscribeEvents();
+    }
+
+    #endregion
+
+    
     private void QueryElements()
     {
         VisualElement root = _document.rootVisualElement;
+        
+        _mainContainer = root.Q<VisualElement>("MainContainer");
+        _settingsContainer = root.Q<VisualElement>("SettingsContainer");
 
         _startBtn = root.Q<Button>("StartButton");
         _settingsBtn = root.Q<Button>("SettingsButton");
         _quitBtn = root.Q<Button>("QuitButton");
+        _backBtn = root.Q<Button>("BackBtn");
+        
+        if (themeManager != null)
+        {
+            themeManager.Initialize(_settingsContainer); 
+        }
+    }
+
+    private void ChanceMenuOrSettings(bool menuActive)
+    {
+        if (menuActive)
+        {
+            _settingsContainer.style.display =  DisplayStyle.None;
+            _mainContainer.style.display = DisplayStyle.Flex;    
+        }
+        else
+        {
+            _settingsContainer.style.display =  DisplayStyle.Flex;
+            _mainContainer.style.display = DisplayStyle.None;  
+        }
+        
     }
 
     #region Events And Subscribtions
@@ -40,8 +86,7 @@ public class MainMenuController : MonoBehaviour
         _startBtn.RegisterCallback<ClickEvent>(OnStartGameClick);
         _settingsBtn.RegisterCallback<ClickEvent>(OnSettingsClick);
         _quitBtn.RegisterCallback<ClickEvent>(OnQuitClick);
-            
-        _document.rootVisualElement.RegisterCallback<ClickEvent>(OnAnyClickReceived);
+        _backBtn?.RegisterCallback<ClickEvent>(OnBackClick);
     }
 
     private void UnsubscribeEvents()
@@ -49,20 +94,9 @@ public class MainMenuController : MonoBehaviour
         _startBtn?.UnregisterCallback<ClickEvent>(OnStartGameClick);
         _settingsBtn?.UnregisterCallback<ClickEvent>(OnSettingsClick);
         _quitBtn?.UnregisterCallback<ClickEvent>(OnQuitClick);
-        
-        _document.rootVisualElement.UnregisterCallback<ClickEvent>(OnAnyClickReceived);
-    }
-
-    private void OnAnyClickReceived(ClickEvent evt)
-    {
-        if(evt.target is Button clickedButton) GlobalButtonEvent(evt);
+        _backBtn?.UnregisterCallback<ClickEvent>(OnBackClick);
     }
     
-    private void GlobalButtonEvent(ClickEvent evt)
-    {
-        Debug.Log("This part is for all buttons");
-    }
-
     private void OnStartGameClick(ClickEvent evt)
     {
         Debug.Log($"Game Starting... Game Scene Index: {gameSceneIndex}");
@@ -71,7 +105,12 @@ public class MainMenuController : MonoBehaviour
 
     private void OnSettingsClick(ClickEvent evt)
     {
-        Debug.Log("Not implemented yet.");
+        ChanceMenuOrSettings(false);
+    }
+    
+    private void OnBackClick(ClickEvent evt)
+    {
+        ChanceMenuOrSettings(true);
     }
 
     private void OnQuitClick(ClickEvent evt)
@@ -83,15 +122,4 @@ public class MainMenuController : MonoBehaviour
 #endif
     }
     #endregion
-    
-    private void OnEnable()
-    {
-        SubscribeEvents();    
-    }
-
-    private void OnDisable()
-    {
-        if (_document == null || _document.rootVisualElement == null) return;
-        UnsubscribeEvents();
-    }
 }
