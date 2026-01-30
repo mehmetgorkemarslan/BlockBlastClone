@@ -110,7 +110,7 @@ public class MainMenuController : MonoBehaviour
     
     private void OnStartGameClick(ClickEvent evt)
     {
-        AtlasHelper.PackRuntimeAtlas(theme.colors);
+        ThemeManager.instance.RefreshTHemeAtlas();
 #if UNITY_EDITOR
         
         Debug.Log($"Game Starting... Game Scene Index: {gameSceneIndex}");

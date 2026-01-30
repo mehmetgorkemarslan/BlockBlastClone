@@ -142,7 +142,7 @@ public class GridController : MonoBehaviour
         byte colorIndex = _boardData[r, c];
         Sprite correctSprite = theme.GetSprite(colorIndex, iconType);
 
-        if (_visualBoard[r, c] != null)
+        if (_visualBoard[r, c])
         {
             _visualBoard[r, c].UpdateSprite(correctSprite);
         }
