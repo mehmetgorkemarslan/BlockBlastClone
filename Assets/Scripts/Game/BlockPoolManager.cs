@@ -5,21 +5,29 @@ using UnityEngine;
 public class BlockPoolManager : MonoBehaviour
 {
     [SerializeField] private GameObject blockPrefab; 
-    [SerializeField] private BlockTheme themeData;
     [SerializeField] private int safeBuffer = 20;
     [SerializeField] private Transform container;
+    private BlockTheme _theme;
 
     // Stack because Stack is more cache friendly than Queue
     private Stack<BlockVisual> _pool = new Stack<BlockVisual>();
 
     private void Awake()
     {
+        
+        if (ThemeManager.instance == null || ThemeManager.instance.activeTheme == null)
+        {
+            Debug.LogError("Theme Manager Cant found. Please Start from main menu");
+            return;
+        }
+
+        _theme = ThemeManager.instance.activeTheme;
         InitializePool();
     }
 
     private void InitializePool()
-    {
-        int totalSize = (themeData.rows * themeData.columns) + safeBuffer;
+    {   
+        int totalSize = (_theme.rows * _theme.columns) + safeBuffer;
         for (int i = 0; i < totalSize; i++)
         {
             CreateNewBlock(false);

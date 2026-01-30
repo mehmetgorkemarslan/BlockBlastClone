@@ -10,7 +10,7 @@ public class GridController : MonoBehaviour
     #region Fields
     [Header("Settings")] private int m;
     private int n; // M row N column
-    [SerializeField] private BlockTheme theme;
+    private BlockTheme theme;
 
     [Header("References")] [SerializeField]
     private GridAnalyzer analyzer;
@@ -51,6 +51,14 @@ public class GridController : MonoBehaviour
         _positionAction.AddBinding("<Mouse>/position");
         _positionAction.AddBinding("<Touchscreen>/primaryTouch/position");
 
+        if (ThemeManager.instance == null || ThemeManager.instance.activeTheme == null)
+        {
+            Debug.LogError("Theme Manager Cant found. Please Start from main menu");
+            return;
+        }
+
+        theme = ThemeManager.instance.activeTheme;
+        
         m = theme.rows;
         n = theme.columns;
         clusteringChance = theme.clusterChance;

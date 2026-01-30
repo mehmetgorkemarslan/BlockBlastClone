@@ -7,11 +7,11 @@ public class MainMenuController : MonoBehaviour
 {
     [Header("Dependencies")] 
     [SerializeField]
-    private ThemeSettingsManager themeManager;
+    private ThemeSettingsManager themeSettingsManager;
     [SerializeField]
     private int gameSceneIndex = 1;
 
-    [SerializeField] private BlockTheme blockTheme;
+    private BlockTheme theme;
     
     private UIDocument _document;
 
@@ -30,6 +30,14 @@ public class MainMenuController : MonoBehaviour
         _document = GetComponent<UIDocument>();
         
         if(_document == null) return;
+        
+        if (ThemeManager.instance == null || ThemeManager.instance.activeTheme == null)
+        {
+            Debug.LogError("Theme Manager Cant found. Please Start from main menu");
+            return;
+        }
+
+        theme = ThemeManager.instance.activeTheme;
         
         QueryElements();
     }
@@ -62,9 +70,9 @@ public class MainMenuController : MonoBehaviour
         _quitBtn = root.Q<Button>("QuitButton");
         _backBtn = root.Q<Button>("BackBtn");
         
-        if (themeManager != null)
+        if (themeSettingsManager != null)
         {
-            themeManager.Initialize(_settingsContainer); 
+            themeSettingsManager.Initialize(_settingsContainer); 
         }
     }
 
@@ -102,7 +110,7 @@ public class MainMenuController : MonoBehaviour
     
     private void OnStartGameClick(ClickEvent evt)
     {
-        AtlasHelper.PackRuntimeAtlas(blockTheme.colors);
+        AtlasHelper.PackRuntimeAtlas(theme.colors);
 #if UNITY_EDITOR
         
         Debug.Log($"Game Starting... Game Scene Index: {gameSceneIndex}");

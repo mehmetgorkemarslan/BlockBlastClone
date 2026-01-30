@@ -9,7 +9,7 @@ using UnityEditor;
 
 public class ThemeSettingsManager : MonoBehaviour
 {
-    [SerializeField] private BlockTheme theme;
+    private BlockTheme theme;
 
     // UI Elements
     private VisualElement _settingsRoot;
@@ -46,6 +46,14 @@ public class ThemeSettingsManager : MonoBehaviour
         _clusterSlider = root.Q<Slider>("ClusterSlider");
         _clusterValueLabel = root.Q<Label>("ClusterValueLabel");
 
+        if (ThemeManager.instance == null || ThemeManager.instance.activeTheme == null)
+        {
+            Debug.LogError("Theme Manager Cant found. Please Start from main menu");
+            return;
+        }
+
+        theme = ThemeManager.instance.activeTheme;
+        
         SubscribeEvents();
 
         RefreshUI();
