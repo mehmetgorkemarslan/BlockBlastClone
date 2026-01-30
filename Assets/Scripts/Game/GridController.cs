@@ -241,14 +241,39 @@ public class GridController : MonoBehaviour
     }
 
     private void ApplyGravityAndRefill()
-    {
-        // Gravity
+    { 
         int k = theme.activeColorCount;
+
+        
+        // Dynamic animation delay
+        int animatedColCount = 0;
         for (int c = 0; c < n; c++)
         {
+            bool needsUpdate = false;
+            int wTest = 0;
+            for (int r = 0; r < m; r++)
+            {
+                if (_boardData[r, c] != GameConstants.EMPTY)
+                {
+                    if (r != wTest) needsUpdate = true;
+                    wTest++;
+                }
+            }
+            if (wTest < m) needsUpdate = true;
+
+            float currentExtraDelay = 0;
+            if (needsUpdate)
+            {
+                currentExtraDelay = animatedColCount * _bounceDelay;
+                animatedColCount++;
+            }
+            
+            
+            
             // Next empty row
             int writeRow = 0;
 
+            // Gravity
             for (int r = 0; r < m; r++)
             {
                 // Row is empty. Look next.
@@ -270,7 +295,7 @@ public class GridController : MonoBehaviour
                     {
                         block.gridPosition = new Vector2Int(writeRow, c);
                         Vector3 targetPos = new Vector3(c, writeRow, 0);
-                        block.MovePos(targetPos, _fallDuration);
+                        block.MovePos(targetPos, _fallDuration + currentExtraDelay);
                     }
                 }
 
@@ -292,7 +317,7 @@ public class GridController : MonoBehaviour
                 _visualBoard[r, c] = newBlock;
 
                 Vector3 targetPos = new Vector3(c, r, 0);
-                newBlock.MovePos(targetPos, _fallDuration + (c*_bounceDelay));
+                newBlock.MovePos(targetPos, _fallDuration + currentExtraDelay);
             }
         }
     }

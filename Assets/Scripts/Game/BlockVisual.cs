@@ -10,6 +10,12 @@ public class BlockVisual : MonoBehaviour
     public void Init(int r, int c)
     {
         gridPosition = new Vector2Int(r, c);
+        
+        if (spriteRenderer)
+        {
+            spriteRenderer.sortingOrder = r; 
+        }
+        
         ResetState();
     }
 
@@ -21,7 +27,7 @@ public class BlockVisual : MonoBehaviour
             spriteRenderer.color = Color.white;
         }
         // Todo: Stop particle things
-        transform.localScale = Vector3.one; 
+        transform.localScale = Vector3.one * 1.2f; 
         transform.localRotation = Quaternion.identity;
     }
     
@@ -44,6 +50,10 @@ public class BlockVisual : MonoBehaviour
     {
         transform.DOKill();
         transform.DOLocalMove(target, duration).SetEase(Ease.OutQuad);
+        if (spriteRenderer)
+        {
+            spriteRenderer.sortingOrder = (int)target.y; 
+        }
     }
 
     private void OnDestroy()
