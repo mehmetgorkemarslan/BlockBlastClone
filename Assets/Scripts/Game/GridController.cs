@@ -15,9 +15,9 @@ public class GridController : MonoBehaviour
     [Header("References")] [SerializeField]
     private GridAnalyzer analyzer;
     [SerializeField] private GameManager gameManager;
-
     [SerializeField] private BlockVisual blockPrefab;
     [SerializeField] private Transform boardContainer;
+    [SerializeField] private BlockPoolManager poolManager;
 
     
     private float clusteringChance = 0.4f;
@@ -103,9 +103,7 @@ public class GridController : MonoBehaviour
             {
                 _boardData[r, c] = GetWeightedRandomColor(r, c);
 
-                //Todo: Object Pooling
-                BlockVisual newBlock = Instantiate(blockPrefab, boardContainer);
-                newBlock.transform.localPosition = new Vector3(c, r, 0);
+                BlockVisual newBlock = poolManager.GetBlock(boardContainer, new Vector3(c, r, 0));
                 newBlock.Init(r, c);
 
                 _visualBoard[r, c] = newBlock;
@@ -216,8 +214,7 @@ public class GridController : MonoBehaviour
         {
             if (_visualBoard[pos.x, pos.y])
             {
-                // TODO: Object pooling
-                Destroy(_visualBoard[pos.x, pos.y].gameObject);
+                poolManager.ReturnBlock(_visualBoard[pos.x, pos.y]);
                 _visualBoard[pos.x, pos.y] = null;
             }
 
@@ -276,14 +273,12 @@ public class GridController : MonoBehaviour
             // Add new blocks from writeRow to M-1
             for (int r = writeRow; r < m; r++)
             {
-                //TODO: Object pooling
                 byte newColor = (byte)Random.Range(0, k);
                 _boardData[r, c] = newColor;
 
-                BlockVisual newBlock = Instantiate(blockPrefab, boardContainer);
-                newBlock.UpdateSprite(theme.GetSprite(newColor, 0));
                 float startY = n + 2;
-                newBlock.transform.localPosition = new Vector3(c, startY, 0);
+                BlockVisual newBlock = poolManager.GetBlock(boardContainer, new Vector3(c, startY, 0));
+                newBlock.UpdateSprite(theme.GetSprite(newColor, 0));
                 newBlock.Init(r, c);
 
                 _visualBoard[r, c] = newBlock;

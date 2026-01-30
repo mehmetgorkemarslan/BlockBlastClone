@@ -11,8 +11,20 @@ public class BlockVisual : MonoBehaviour
     public void Init(int r, int c)
     {
         gridPosition = new Vector2Int(r, c);
+        ResetState();
     }
 
+    public void ResetState()
+    {
+        if (spriteRenderer)
+        {
+            spriteRenderer.color = Color.white;
+        }
+        // Todo: Stop particle things
+        transform.localScale = Vector3.one; 
+        transform.localRotation = Quaternion.identity;
+    }
+    
     public void UpdateSprite(Sprite sprite)
     {
         if (spriteRenderer == null)

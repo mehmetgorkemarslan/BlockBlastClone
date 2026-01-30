@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9861088e7eb0f984ebce0d46b7c3aba1, type: 3}
   m_Name: BlockVisuals
   m_EditorClassIdentifier: Assembly-CSharp::BlockTheme
-  rows: 12
+  rows: 10
   columns: 10
   clusterChance: 0.3778
   thresholds: 030000000400000005000000
