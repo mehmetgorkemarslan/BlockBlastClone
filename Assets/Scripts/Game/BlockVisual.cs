@@ -35,7 +35,10 @@ public class BlockVisual : MonoBehaviour
     {
         if (!spriteRenderer)
         {
+#if UNITY_EDITOR
+            
             Debug.LogWarning($"BlockVisual missing SpriteRenderer on '{gameObject.name}'");
+#endif
             return;
         }
 

@@ -69,13 +69,18 @@ public class BlockTheme : ScriptableObject
     {
         if (colors == null || colors.Length == 0)
         {
+#if UNITY_EDITOR
             Debug.LogWarning("BlockTheme has no colors configured.");
+#endif
             return null;
         }
 
         if (colorIndex < 0 || colorIndex >= colors.Length ||colorIndex >= activeColorCount)
         {
+#if UNITY_EDITOR
+            
             Debug.LogWarning($"GetSprite: invalid colorIndex {colorIndex} for theme '{name}'.");
+#endif
             return null;
         }
 

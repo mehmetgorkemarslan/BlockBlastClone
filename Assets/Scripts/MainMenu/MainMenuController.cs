@@ -94,9 +94,9 @@ public class MainMenuController : MonoBehaviour
     #region Events And Subscribtions
     private void SubscribeEvents()
     {
-        _startBtn.RegisterCallback<ClickEvent>(OnStartGameClick);
-        _settingsBtn.RegisterCallback<ClickEvent>(OnSettingsClick);
-        _quitBtn.RegisterCallback<ClickEvent>(OnQuitClick);
+        _startBtn?.RegisterCallback<ClickEvent>(OnStartGameClick);
+        _settingsBtn?.RegisterCallback<ClickEvent>(OnSettingsClick);
+        _quitBtn?.RegisterCallback<ClickEvent>(OnQuitClick);
         _backBtn?.RegisterCallback<ClickEvent>(OnBackClick);
     }
 

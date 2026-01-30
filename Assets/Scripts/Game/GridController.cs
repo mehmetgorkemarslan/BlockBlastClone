@@ -53,7 +53,10 @@ public class GridController : MonoBehaviour
 
         if (ThemeManager.instance == null || ThemeManager.instance.activeTheme == null)
         {
+#if UNITY_EDITOR
+            
             Debug.LogError("Theme Manager Cant found. Please Start from main menu");
+#endif
             return;
         }
 
