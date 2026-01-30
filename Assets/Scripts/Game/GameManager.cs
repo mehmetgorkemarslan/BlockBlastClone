@@ -71,10 +71,10 @@ public class GameManager : MonoBehaviour
 
     private void Subscribe()
     {
-        _resumeBtn.RegisterCallback<ClickEvent>(OnResumeClick);
-        _mainMenuBtn.RegisterCallback<ClickEvent>(OnMainMenuClick);
-        _exitBtn.RegisterCallback<ClickEvent>(OnExitClick);
-        _pauseBtn.RegisterCallback<ClickEvent>(OnPauseClick);
+        _resumeBtn?.RegisterCallback<ClickEvent>(OnResumeClick);
+        _mainMenuBtn?.RegisterCallback<ClickEvent>(OnMainMenuClick);
+        _exitBtn?.RegisterCallback<ClickEvent>(OnExitClick);
+        _pauseBtn?.RegisterCallback<ClickEvent>(OnPauseClick);
         
         _document.rootVisualElement.RegisterCallback<ClickEvent>(OnGlobalClick);
     }
@@ -96,18 +96,24 @@ public class GameManager : MonoBehaviour
 
     private void OnGlobalButtonClick(ClickEvent evt)
     {
+#if UNITY_EDITOR
         Debug.Log("Global Button Clik");
+#endif
     }
 
     private void OnResumeClick(ClickEvent evt)
     {
+#if UNITY_EDITOR
         Debug.Log("ResumeClicked");
+#endif
         ToggleGamePauseState();
     }
 
     private void OnMainMenuClick(ClickEvent evt)
     {
+#if UNITY_EDITOR
         Debug.Log("Main Menu button");
+#endif
         Time.timeScale = 1f;
         SceneManager.LoadScene(mainMenuSceneIndex);
     }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class MainMenuController : MonoBehaviour
     private ThemeSettingsManager themeManager;
     [SerializeField]
     private int gameSceneIndex = 1;
+
+    [SerializeField] private BlockTheme blockTheme;
     
     private UIDocument _document;
 
@@ -99,7 +102,11 @@ public class MainMenuController : MonoBehaviour
     
     private void OnStartGameClick(ClickEvent evt)
     {
+        AtlasHelper.PackRuntimeAtlas(blockTheme.colors);
+#if UNITY_EDITOR
+        
         Debug.Log($"Game Starting... Game Scene Index: {gameSceneIndex}");
+#endif
         SceneManager.LoadScene(gameSceneIndex);
     }
 

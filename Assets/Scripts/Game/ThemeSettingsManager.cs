@@ -269,7 +269,10 @@ public class ThemeSettingsManager : MonoBehaviour
         slot.RegisterCallback<ClickEvent>(evt =>
         {
             // Todo: File system
+#if UNITY_EDITOR
+            
             Debug.Log($"Change Sprite: Color {colorIndex}, Level {spriteIndex}.");
+#endif
         });
 
         return slot;

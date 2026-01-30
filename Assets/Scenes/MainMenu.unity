@@ -371,6 +371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuController
   themeManager: {fileID: 261113200}
   gameSceneIndex: 1
+  blockTheme: {fileID: 11400000, guid: b89abaaa5fe56cb438d23495ecd04d9e, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
